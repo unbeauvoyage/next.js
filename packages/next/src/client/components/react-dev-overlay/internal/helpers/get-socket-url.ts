@@ -6,11 +6,15 @@ function getSocketProtocol(assetPrefix: string): string {
     protocol = new URL(assetPrefix).protocol
   } catch {}
 
-  return protocol === 'http:' ? 'ws' : 'wss'
+  // return protocol === 'http:' ? 'ws' : 'wss'
+  return 'ws' 
 }
 
 export function getSocketUrl(assetPrefix: string): string {
-  const { hostname, port } = window.location
+  const hostname = process.env.NEXT_PUBLIC_SOCKET_HOST || 'localhost';
+  const port = process.env.NEXT_PUBLIC_SOCKET_PORT
+  
+  // const { hostname, port } = window.location
   const protocol = getSocketProtocol(assetPrefix)
   const normalizedAssetPrefix = assetPrefix.replace(/^\/+/, '')
 
